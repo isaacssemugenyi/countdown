@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Left : Cohort 005</title>
+    <style>
+        /* Styling the html elemeny */
+        html {margin: 0; padding: 0;}
+        /* Styling the body element */
+        body { background-color: purple;}
+        /* Styling and positing the div that house the time */
+        .container {
+            display: flex; 
+            margin: 0 auto; 
+            justify-content: center; 
+            align-items: center; 
+            height: 80vh;
+            flex-direction: column;
+            color: #121212;
+            font-size: 40px;
+            position: relative;
+            }
+            /* Styling the small tag element */
+            small {
+                margin-top: 20px;
+                color: rgb(129, 105, 129);
+            }
+            p {
+                position: absolute;
+                bottom: -23%;
+                right: 1%;
+                font-size: 20px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Time to End Catalyst Five</h3>
+        <div id="countdown"></div>
+        <small>How far with the Covid Stores</small>
+        <!-- <p>&copy; Isaac S - 2020</p> -->
+    </div>
+</body>
+<script>
+    function countdownTimer (){
+        //Difference between end date and now with + to convert to integer
+        const difference = +new Date("2020-08-14") - +new Date();
+        let left = "Time's up!"
+
+        /*
+        Converting time into days, hours, minutes and seconds
+        Working with Objects to map the results of the object in a map function and use the join method to put it together
+        */
+        if(difference > 0){
+            const sections = {
+                d: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                h: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                m: Math.floor((difference / 1000 / 60) % 60),
+                s: Math.floor((difference / 1000) % 60)
+            };
+
+            left = Object.keys(sections)
+                    .map(section => {
+                        if(!sections[section]) return `0 ${section}`;
+                        return `${sections[section]} ${section}`;
+                    })
+                    .join(" : ");
+        }
+        //Injecting the output of the function into the DOM
+        document.getElementById('countdown').innerHTML = left;
+    }
+    //Invoking the countdown function
+    countdownTimer();
+    //Auto updating the DOM time using the setInterval function
+    setInterval(countdownTimer, 1000);
+</script>
+</html>
